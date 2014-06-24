@@ -3,7 +3,7 @@
   <parent>
     <artifactId>storm</artifactId>
     <groupId>org.apache.storm</groupId>
-    <version>0.9.3-incubating-SNAPSHOT</version>
+    <version>0.9.3-ben</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.apache.storm</groupId>

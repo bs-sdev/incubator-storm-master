@@ -111,6 +111,7 @@ public class TopologyBuilder {
             spoutSpecs.put(spoutId, new SpoutSpec(ComponentObject.serialized_java(Utils.serialize(spout)), common));
             
         }
+        System.out.println("CREATION DE LA TOPOLOGIE => CONSTRUCTEUR");
         return new StormTopology(spoutSpecs,
                                  boltSpecs,
                                  new HashMap<String, StateSpoutSpec>());
