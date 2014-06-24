@@ -1,0 +1,54 @@
+{
+    "motorcycles" : [
+        {
+            "name": "GSX-R",
+            "power": "155",
+            "engineSize": "750"
+        },
+        {
+            "name": "R6",
+            "power": "25",
+            "engineSize": "600"
+        },
+        {
+            "name": "CBR",
+            "power": "182",
+            "engineSize": "1000"
+        },
+        {
+            "name": "GSX-R",
+            "power": "155",
+            "engineSize": "750"
+        },
+        {
+            "name": "GSX-R",
+            "power": "155",
+            "engineSize": "750"
+        },
+        {
+            "name": "ZXR",
+            "power": "200",
+            "engineSize": "1000"
+        },
+        {
+            "name": "R6",
+            "power": "25",
+            "engineSize": "600"
+        },
+        {
+            "name": "GSX-R",
+            "power": "155",
+            "engineSize": "750"
+        },
+        {
+            "name": "CBR",
+            "power": "182",
+            "engineSize": "1000"
+        },
+        {
+            "name": "GSX-R",
+            "power": "155",
+            "engineSize": "750"
+        }
+    ] 
+}
