@@ -47,12 +47,12 @@ public class TestTopology {
     builder.setBolt("bolt8", new BoltA(), 3).shuffleGrouping("bolt7");
     
     
-    
     Config conf = new Config();
-    conf.setMessageTimeoutSecs(2);
-    conf.setMaxSpoutPending(3);
-    conf.setDebug(false);
+//    conf.setMessageTimeoutSecs(2);
+//    conf.setMaxSpoutPending(3);
+    conf.setDebug(true);
 
+    
     if (args != null && args.length > 0) {
       conf.setNumWorkers(3);
 

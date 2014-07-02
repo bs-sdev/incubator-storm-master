@@ -9,6 +9,7 @@ import backtype.storm.topology.base.BaseRichBolt;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
+import backtype.storm.utils.Utils;
 
 public class BoltA extends BaseRichBolt{
 	OutputCollector _collector;
@@ -43,12 +44,6 @@ public class BoltA extends BaseRichBolt{
 		// Tableau de chaines afin de récupérer, en dernière valeur, la moto
     	// Après observation dans le debug, ce sera à l'index 3 => tokensVal[3]
     	String[] tokensVal = res.split(delimiter);
-    	
-    	/*for(String val : tokensVal){
-    		System.out.println("Valeur reçue ===> " + val);
-    	}*/
-    	
-    	
     	
     	Values maValeur = new Values(tuple);
     	

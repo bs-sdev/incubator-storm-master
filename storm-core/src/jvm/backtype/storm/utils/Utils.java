@@ -167,6 +167,12 @@ public class Utils {
         return findAndReadConfigFile("defaults.yaml", true);
     }
     
+    /** ADD SOULAS : comments
+     * 
+     * Fonction qui va charger les commandes de configuration dans une hashmap
+     * 
+     * @return
+     */
     public static Map readCommandLineOpts() {
         Map ret = new HashMap();
         String commandOptions = System.getProperty("storm.options");

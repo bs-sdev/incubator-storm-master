@@ -24,11 +24,18 @@
 
 (def RESOURCES-SUBDIR "resources")
 
+
+;; --SOULAS-- 
+;; fonction permettant de mettre en majuscule la configuration utilisée 
+;; et à remplacer les underscores par des tirets
 (defn- clojure-config-name [name]
   (.replace (.toUpperCase name) "_" "-"))
 
 ;; define clojure constants for every configuration parameter
+;; --SOULAS--
+;; Récupération des attributs public de l'objet de classe "Config"
 (doseq [f (seq (.getFields Config))]
+  ;; Récupération du nom de la classe
   (let [name (.getName f)
         new-name (clojure-config-name name)]
     (eval

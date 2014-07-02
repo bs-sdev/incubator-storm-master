@@ -59,7 +59,7 @@ public class TestStatSpout extends BaseRichSpout{
 	        
 			try {
 				// Obtention du path pour acceder au fichier JSON pour le traitement
-				System.out.println(System.getProperty("user.dir"));
+				//System.out.println(System.getProperty("user.dir"));
 				
 				// Accès au fichier JSON contenant les données a traiter
 				FileReader myFile = new FileReader(System.getProperty("user.dir") + "/src/jvm/storm/starter/spout/base_2roue.json");
@@ -80,10 +80,14 @@ public class TestStatSpout extends BaseRichSpout{
 				
 				// parcours du fichier JSON pour afficher chaque moto
 				for(int i = 0; i < array.size(); i++) {
+//				    	// Simulation de temps d'attente aléatoire pour constater le timeout
+//				    	int random = (int)Math.random();
+//				    	int millis = 3500 * random;
+//				    	Utils.sleep(millis);
 					 _collector.emit(new Values(array.get(i)));
 					 synchronized(TestStatSpout.class) {
 						 cptTupleSpout++;
-						 System.out.println("BIKESTATSPOUT : cptTupleSpout => " + cptTupleSpout);
+						 System.out.println("TestStatSpout : cptTupleSpout => " + cptTupleSpout);
 						 System.out.flush();
 					 }
 				}
