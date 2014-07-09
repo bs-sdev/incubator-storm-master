@@ -28,13 +28,12 @@ public class CylindreTransformBolt_nosync extends BaseRichBolt{
     }
 
     @Override
-    public synchronized void execute(Tuple tuple) {
+    public void execute(Tuple tuple) {
     	//System.out.println("CYLINDRETRANSFORM : Valeur du tuple => \"" + tuple + "\"");
-    	synchronized(CylindreTransformBolt_nosync.class) {
-    		nbTuple++;
-    		System.out.println("CYLINDRETRANSFORM_NOSYNC nbTuple : " + nbTuple);
-    		System.out.flush();
-    	}
+		nbTuple++;
+		System.out.println("CYLINDRETRANSFORM_NOSYNC nbTuple : " + nbTuple);
+		System.out.flush();
+
     	String res = tuple.toString();
     	
     	//System.out.println("Valeur 0 dans le tuple => " + res);
@@ -98,12 +97,12 @@ public class CylindreTransformBolt_nosync extends BaseRichBolt{
     		_collector.ack(tuple);
     		
     		//System.out.println("CYLINDRETRANSFORM : Valeur ajoutée dans le collector => " + new Values(res));
-    		synchronized(CylindreTransformBolt_nosync.class) {
-    			System.out.println("CYLINDRETRANSFORM_NOSYNC Compteur de tuple reçu : " + nbTuple);
-    			System.out.println("tuple reçu par CYLINDRETRANSFORM_NOSYNC " + tuple);
-    			System.out.println("tuple émis par CYLINDRETRANSFORM_NOSYNC " + maValeur);
-    			System.out.flush();
-    		}
+
+			System.out.println("CYLINDRETRANSFORM_NOSYNC Compteur de tuple reçu : " + nbTuple);
+			System.out.println("tuple reçu par CYLINDRETRANSFORM_NOSYNC " + tuple);
+			System.out.println("tuple émis par CYLINDRETRANSFORM_NOSYNC " + maValeur);
+			System.out.flush();
+    			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

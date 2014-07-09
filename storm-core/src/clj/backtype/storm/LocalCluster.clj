@@ -71,6 +71,7 @@
   (.killTopologyWithOpts (:nimbus (. this state)) name opts))
 
 (defn -activate
+(defn -activate
   [this name]
   (.activate (:nimbus (. this state)) name))
 

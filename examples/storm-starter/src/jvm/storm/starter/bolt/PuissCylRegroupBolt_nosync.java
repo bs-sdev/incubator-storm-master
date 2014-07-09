@@ -33,18 +33,17 @@ public class PuissCylRegroupBolt_nosync extends BaseRichBolt{
 	@Override
     public void prepare(Map conf, TopologyContext context, OutputCollector collector) {
       _collector = collector;
-      synchronized(PuissCylRegroupBolt_nosync.class) {
-	      counterHashMap.put("nbA", 0);
-	      counterHashMap.put("nbB", 0);
-	      counterHashMap.put("nbC", 0);
-	      counterHashMap.put("nbS", 0);
-	      counterHashMap.put("nbM", 0);
-	      counterHashMap.put("nbL", 0);
-      }
+      
+      counterHashMap.put("nbA", 0);
+      counterHashMap.put("nbB", 0);
+      counterHashMap.put("nbC", 0);
+      counterHashMap.put("nbS", 0);
+      counterHashMap.put("nbM", 0);
+      counterHashMap.put("nbL", 0);
     }
 
     @Override
-    public synchronized void execute(Tuple tuple) {
+    public void execute(Tuple tuple) {
     	//System.out.println("PUISSCYLREGROUP : Valeur du tuple => \"" + tuple + "\"");
     	
         // Parsing du fichier JSON pour parcours ultérieur
@@ -55,11 +54,9 @@ public class PuissCylRegroupBolt_nosync extends BaseRichBolt{
 		
 			String powerToCheck = "", engineSizeToCheck = "";
 			
-			synchronized(PuissCylRegroupBolt_nosync.class) {
-				cptTuple++;
-				System.out.println("PUISSCYLREGROUP_NOSYNC Compteur de tuple reçu : " + cptTuple);
-    			System.out.println("tuple reçu par PUISSCYLREGROUP_NOSYNC" + tuple);
-			}
+			cptTuple++;
+			System.out.println("PUISSCYLREGROUP_NOSYNC Compteur de tuple reçu : " + cptTuple);
+			System.out.println("tuple reçu par PUISSCYLREGROUP_NOSYNC" + tuple);
 				
 			// Compteur temporaire qui contiendra l'ancienne valeur du compteur dans la Map (ex: ancienne valeur de nbC)
 			int cptTemp = 0;
@@ -77,11 +74,9 @@ public class PuissCylRegroupBolt_nosync extends BaseRichBolt{
 				///////
 			}
 			// Affichage du tableau de compteur
-			synchronized(PuissCylRegroupBolt_nosync.class) {
-				System.out.println("PUISSCYLREGROUP_NOSYNC CPTTUPLE " + cptTuple + " ET CPTPOWER " + cptPower + " ET CPTENGINESIZE " + cptEngineSize);
-				for(Entry<String, Integer> entry : counterHashMap.entrySet()){
-		    		System.out.println(entry.getKey() + " => " + entry.getValue());
-		    	}
+			System.out.println("PUISSCYLREGROUP_NOSYNC CPTTUPLE " + cptTuple + " ET CPTPOWER " + cptPower + " ET CPTENGINESIZE " + cptEngineSize);
+			for(Entry<String, Integer> entry : counterHashMap.entrySet()){
+	    		System.out.println(entry.getKey() + " => " + entry.getValue());
 			}
 
 		} catch (/*ParseException*/Exception e) {
@@ -118,31 +113,25 @@ public class PuissCylRegroupBolt_nosync extends BaseRichBolt{
 			System.out.println("POWER VAUT : " + powerToCheck);
 			
 			if(powerToCheck.equalsIgnoreCase("A")){
-				synchronized(PuissCylRegroupBolt_nosync.class) {
-					cptTemp = counterHashMap.get("nbA");
-					cptTemp++;
-					cptPower++;
-					//System.out.println("Valeur de CPTTEMP = " + cptTemp + " et POWER " + powerToCheck);
-					counterHashMap.put("nbA", cptTemp);	
-				}
+				cptTemp = counterHashMap.get("nbA");
+				cptTemp++;
+				cptPower++;
+				//System.out.println("Valeur de CPTTEMP = " + cptTemp + " et POWER " + powerToCheck);
+				counterHashMap.put("nbA", cptTemp);	
 	    	}	
 	    	else if(powerToCheck.equalsIgnoreCase("B")){
-	    		synchronized(PuissCylRegroupBolt.class) {
-		    		cptTemp = counterHashMap.get("nbB");
-		    		cptTemp++;
-		    		cptPower++;
-		    		//System.out.println("Valeur de CPTTEMP = " + cptTemp + " et POWER " + powerToCheck);
-					counterHashMap.put("nbB", cptTemp);	
-	    		}
+	    		cptTemp = counterHashMap.get("nbB");
+	    		cptTemp++;
+	    		cptPower++;
+	    		//System.out.println("Valeur de CPTTEMP = " + cptTemp + " et POWER " + powerToCheck);
+				counterHashMap.put("nbB", cptTemp);	
 	    	}
 	    	else if(powerToCheck.equalsIgnoreCase("C")){
-	    		synchronized(PuissCylRegroupBolt.class) {
-		    		cptTemp = counterHashMap.get("nbC");
-		    		cptTemp++;
-		    		cptPower++;
-		    		//System.out.println("Valeur de CPTTEMP = " + cptTemp + " et POWER " + powerToCheck);
-					counterHashMap.put("nbC", cptTemp);	
-	    		}
+	    		cptTemp = counterHashMap.get("nbC");
+	    		cptTemp++;
+	    		cptPower++;
+	    		//System.out.println("Valeur de CPTTEMP = " + cptTemp + " et POWER " + powerToCheck);
+				counterHashMap.put("nbC", cptTemp);	
 	    	}
 		}
     }
@@ -171,31 +160,25 @@ public class PuissCylRegroupBolt_nosync extends BaseRichBolt{
 			System.out.println("ENGINESIZE VAUT : " + engineSizeToCheck);
 			
 			if(engineSizeToCheck.equalsIgnoreCase("S")){
-				synchronized(PuissCylRegroupBolt_nosync.class) {
-					cptTemp = counterHashMap.get("nbS");
-					cptTemp++;
-					cptEngineSize++;
-					//System.out.println("Valeur de CPTTEMP = " + cptTemp);
-					counterHashMap.put("nbS", cptTemp);
-				}
+				cptTemp = counterHashMap.get("nbS");
+				cptTemp++;
+				cptEngineSize++;
+				//System.out.println("Valeur de CPTTEMP = " + cptTemp);
+				counterHashMap.put("nbS", cptTemp);
 			}
 			else if(engineSizeToCheck.equalsIgnoreCase("M")){
-				synchronized(PuissCylRegroupBolt_nosync.class) {
-					cptTemp = counterHashMap.get("nbM");
-					cptTemp++;
-					cptEngineSize++;
-					//System.out.println("Valeur de CPTTEMP = " + cptTemp);
-					counterHashMap.put("nbM", cptTemp);
-				}
+				cptTemp = counterHashMap.get("nbM");
+				cptTemp++;
+				cptEngineSize++;
+				//System.out.println("Valeur de CPTTEMP = " + cptTemp);
+				counterHashMap.put("nbM", cptTemp);
 			}
 			else if(engineSizeToCheck.equalsIgnoreCase("L")){
-				synchronized(PuissCylRegroupBolt_nosync.class) {
-					cptTemp = counterHashMap.get("nbL");
-					cptTemp++;
-					cptEngineSize++;
-					//System.out.println("Valeur de CPTTEMP = " + cptTemp);
-					counterHashMap.put("nbL", cptTemp);
-				}
+				cptTemp = counterHashMap.get("nbL");
+				cptTemp++;
+				cptEngineSize++;
+				//System.out.println("Valeur de CPTTEMP = " + cptTemp);
+				counterHashMap.put("nbL", cptTemp);
 			}
 		}
     }

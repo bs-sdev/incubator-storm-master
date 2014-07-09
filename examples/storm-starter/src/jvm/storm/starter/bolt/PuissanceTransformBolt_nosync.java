@@ -23,17 +23,16 @@ public class PuissanceTransformBolt_nosync extends BaseRichBolt{
 	
 	@Override
     public void prepare(Map conf, TopologyContext context, OutputCollector collector) {
-      _collector = collector;
+		_collector = collector;
     }
 
     @Override
-    public synchronized void execute(Tuple tuple) {
+    public void execute(Tuple tuple) {
     	//System.out.println("Valeur du tuple => \"" + tuple + "\"");
-    	synchronized(CylindreTransformBolt_nosync.class) {
-    		nbTuple++;
-    		System.out.println("PUISSANCETRANSFORM_NOSYNC nbTuple : " + nbTuple);
-    		System.out.flush();
-    	}
+		nbTuple++;
+		System.out.println("PUISSANCETRANSFORM_NOSYNC nbTuple : " + nbTuple);
+		System.out.flush();
+
     	String res = tuple.toString();
     	
     	//System.out.println("Valeur 0 dans le tuple => " + res);
@@ -96,12 +95,12 @@ public class PuissanceTransformBolt_nosync extends BaseRichBolt{
 			_collector.emit(tuple, maValeur);
     		_collector.ack(tuple);
     		System.out.println(tuple);
-    		synchronized(CylindreTransformBolt_nosync.class) {
-    			System.out.println("PUISSANCETRANSFORM_NOSYNC Compteur de tuple reçu : " + nbTuple);
-    			System.out.println("tuple reçu par PUISSANCETRANSFORM_NOSYNC " + tuple);
-    			System.out.println("tuple émis par PUISSANCETRANSFORM_NOSYNC " + maValeur);
-    			System.out.flush();
-    		}
+
+			System.out.println("PUISSANCETRANSFORM_NOSYNC Compteur de tuple reçu : " + nbTuple);
+			System.out.println("tuple reçu par PUISSANCETRANSFORM_NOSYNC " + tuple);
+			System.out.println("tuple émis par PUISSANCETRANSFORM_NOSYNC " + maValeur);
+			System.out.flush();
+    			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

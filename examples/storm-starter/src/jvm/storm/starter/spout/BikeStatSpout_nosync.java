@@ -50,7 +50,7 @@ public class BikeStatSpout_nosync extends BaseRichSpout{
 	    }
 
 	    // Dans cette fonction, nous allons émettre toutes les motos vers les Bolt
-	    public synchronized void nextTuple() {
+	    public void nextTuple() {
 	        Utils.sleep(100);
 
 		    // Declaration du parser JSON
@@ -80,11 +80,9 @@ public class BikeStatSpout_nosync extends BaseRichSpout{
 				// parcours du fichier JSON pour afficher chaque moto
 				for(int i = 0; i < array.size(); i++) {
 					 _collector.emit(new Values(array.get(i)));
-					 synchronized(BikeStatSpout_nosync.class) {
-						 cptTupleSpout++;
-						 System.out.println("BIKESTATSPOUT_NOSYNC : cptTupleSpout => " + cptTupleSpout);
-						 System.out.flush();
-					 }
+					 cptTupleSpout++;
+					 System.out.println("BIKESTATSPOUT_NOSYNC : cptTupleSpout => " + cptTupleSpout);
+					 System.out.flush();
 				}
 			} 
 			catch (FileNotFoundException e) {
