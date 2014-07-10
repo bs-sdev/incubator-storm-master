@@ -50,7 +50,7 @@ public class BikeStatSpout extends BaseRichSpout{
 	    }
 
 	    // Dans cette fonction, nous allons émettre toutes les motos vers les Bolt
-	    public synchronized void nextTuple() {
+	    public /*synchronized*/ void nextTuple() {
 	        Utils.sleep(100);
 
 		    // Declaration du parser JSON
@@ -100,11 +100,6 @@ public class BikeStatSpout extends BaseRichSpout{
 				e.printStackTrace();
 				System.out.println("ERREUR DE PARSE");
 			}
-	        
-	        /*final String[] words = new String[] {"GSXR", "R6", "Ninja", "CBR"};
-	        final Random rand = new Random();
-	        final String word = words[rand.nextInt(words.length)];
-	        _collector.emit(new Values(word));*/
 	    }
 
 	    public void ack(Object msgId) {

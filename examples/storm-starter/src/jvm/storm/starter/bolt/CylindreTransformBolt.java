@@ -28,7 +28,7 @@ public class CylindreTransformBolt extends BaseRichBolt{
     }
 
     @Override
-    public synchronized void execute(Tuple tuple) {
+    public /*synchronized*/ void execute(Tuple tuple) {
     	//System.out.println("CYLINDRETRANSFORM : Valeur du tuple => \"" + tuple + "\"");
     	synchronized(CylindreTransformBolt.class) {
     		nbTuple++;

@@ -27,7 +27,7 @@ public class PuissanceTransformBolt extends BaseRichBolt{
     }
 
     @Override
-    public synchronized void execute(Tuple tuple) {
+    public /*synchronized*/ void execute(Tuple tuple) {
     	//System.out.println("Valeur du tuple => \"" + tuple + "\"");
     	synchronized(PuissanceTransformBolt.class) {
     		nbTuple++;

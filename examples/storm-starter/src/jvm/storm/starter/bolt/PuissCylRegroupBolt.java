@@ -44,7 +44,7 @@ public class PuissCylRegroupBolt extends BaseRichBolt{
     }
 
     @Override
-    public synchronized void execute(Tuple tuple) {
+    public /*synchronized*/ void execute(Tuple tuple) {
     	//System.out.println("PUISSCYLREGROUP : Valeur du tuple => \"" + tuple + "\"");
     	
         // Parsing du fichier JSON pour parcours ultérieur
