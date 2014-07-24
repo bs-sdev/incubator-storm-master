@@ -30,6 +30,11 @@ import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 import backtype.storm.utils.Utils;
+import backtype.storm.metric.LoggingMetricsConsumer;
+import backtype.storm.metric.api.CountMetric;
+import backtype.storm.metric.api.MeanReducer;
+import backtype.storm.metric.api.MultiCountMetric;
+import backtype.storm.metric.api.ReducedMetric;
 
 import java.util.Map;
 
@@ -38,27 +43,51 @@ import java.util.Map;
  */
 public class ExclamationTopology {
 
-  public static class ExclamationBolt extends BaseRichBolt {
-    OutputCollector _collector;
+	  public static class ExclamationBolt extends BaseRichBolt {
+	    OutputCollector _collector;
+	    
+	    CountMetric _countMetric;
+		MultiCountMetric _wordCountMetric;
+		ReducedMetric _wordLengthMeanMetric;
 
-    @Override
-    public void prepare(Map conf, TopologyContext context, OutputCollector collector) {
-      _collector = collector;
-    }
+	    @Override
+	    public void prepare(Map conf, TopologyContext context, OutputCollector collector) {
+	      _collector = collector;
+	      /////////////
+	      initMetrics(context);
+	    }
 
-    @Override
-    public void execute(Tuple tuple) {
-      _collector.emit(tuple, new Values(tuple.getString(0) + "!!!"));
-      _collector.ack(tuple);
-    }
+	    @Override
+	    public void execute(Tuple tuple) {
+	      _collector.emit(tuple, new Values(tuple.getString(0) + "!!!"));
+	      _collector.ack(tuple);
+	      
+	      updateMetrics(tuple.getString(0));
+	    }
 
-    @Override
-    public void declareOutputFields(OutputFieldsDeclarer declarer) {
-      declarer.declare(new Fields("word"));
-    }
+	    @Override
+	    public void declareOutputFields(OutputFieldsDeclarer declarer) {
+	      declarer.declare(new Fields("word"));
+	    }
+	    
+	    void initMetrics(TopologyContext context){
+	    	_countMetric = new CountMetric();
+	    	_wordCountMetric = new MultiCountMetric();
+	    	_wordLengthMeanMetric = new ReducedMetric(new MeanReducer());
+	    	
+	    	context.registerMetric("execute_count", _countMetric, 5);
+	    	context.registerMetric("word_count", _wordCountMetric, 60);
+	    	context.registerMetric("word_legnth", _wordLengthMeanMetric, 60);
+	    }
 
+	    void updateMetrics(String word){
+	    	_countMetric.incr();
+	    	_wordCountMetric.scope(word).incr();
+	    	_wordLengthMeanMetric.update(word.length());
+	    }
+	    
 
-  }
+	  }
 
   public static void main(String[] args) throws Exception {
     TopologyBuilder builder = new TopologyBuilder();

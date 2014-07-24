@@ -45,7 +45,6 @@ public class BikeTopology {
       StormSubmitter.submitTopology(args[0], conf, builder.createTopology());
     }
     else {
-
       LocalCluster cluster = new LocalCluster();
       cluster.submitTopology("test", conf, builder.createTopology());
       Utils.sleep(10000);
