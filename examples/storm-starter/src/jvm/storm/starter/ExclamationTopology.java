@@ -54,7 +54,7 @@ public class ExclamationTopology {
 	    public void prepare(Map conf, TopologyContext context, OutputCollector collector) {
 	      _collector = collector;
 	      /////////////
-	      initMetrics(context);
+	      //initMetrics(context);
 	    }
 
 	    @Override
@@ -62,7 +62,7 @@ public class ExclamationTopology {
 	      _collector.emit(tuple, new Values(tuple.getString(0) + "!!!"));
 	      _collector.ack(tuple);
 	      
-	      updateMetrics(tuple.getString(0));
+	      //updateMetrics(tuple.getString(0));
 	    }
 
 	    @Override
