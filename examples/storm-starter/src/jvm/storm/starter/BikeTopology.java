@@ -41,8 +41,8 @@ public class BikeTopology {
 
     if (args != null && args.length > 0) {
       conf.setNumWorkers(3);
-
-      StormSubmitter.submitTopology(args[0], conf, builder.createTopology());
+      //StormSubmitter.submitTopology(args[0], conf, builder.createTopology());
+      StormSubmitter.submitTopologyWithProgressBar(args[0], conf, builder.createTopology());
     }
     else {
       LocalCluster cluster = new LocalCluster();

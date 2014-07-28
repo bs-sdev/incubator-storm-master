@@ -23,6 +23,7 @@ import backtype.storm.LocalDRPC;
 import backtype.storm.StormSubmitter;
 import backtype.storm.coordination.BatchOutputCollector;
 import backtype.storm.drpc.LinearDRPCTopologyBuilder;
+import backtype.storm.scheduler.Cluster;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.BasicOutputCollector;
 import backtype.storm.topology.OutputFieldsDeclarer;
@@ -179,7 +180,7 @@ public class ReachTopology {
       LocalDRPC drpc = new LocalDRPC();
       LocalCluster cluster = new LocalCluster();
       cluster.submitTopology("reach-drpc", conf, builder.createLocalTopology(drpc));
-
+      
       String[] urlsToTry = new String[]{ "foo.com/blog/1", "engineering.twitter.com/blog/5", "notaurl.com" };
       for (String url : urlsToTry) {
         System.out.println("Reach of " + url + ": " + drpc.execute("reach", url));
